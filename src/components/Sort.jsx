@@ -1,6 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 export const Sort = () => {
+
+    const sortArray = ['популярности', 'цене', 'алфавиту']
+
+    const [onModeSort, setOnModeSort] = useState(false)
+    const [activeSortElement, setActiveSortElement] = useState(0)
+
+   const sortName = sortArray[activeSortElement]
+
+    // const [titlePopup, setTitlePopup] = useState('популярности')
+
+    const openSortPopup = () => {
+        setOnModeSort(!onModeSort)
+    }
+
+    const changeSortTitle = () => {
+
+    }
+
+
     return (
         <div className="sort">
             <div className="sort__label">
@@ -17,15 +36,30 @@ export const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span>популярности</span>
+                <span onChange={changeSortTitle} onClick={openSortPopup}>{sortName}</span>
             </div>
-            <div className="sort__popup">
+            {onModeSort && <div className="sort__popup">
                 <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
+                    {sortArray.map((cat, i) => {
+
+
+                        const activeElement = () => {
+                            setActiveSortElement(i)
+                            openSortPopup()
+                        }
+                        return (
+                            <li onClick={activeElement}
+                                className={i === activeSortElement ? "active" : ""}
+                                key={i}>{cat}</li>
+                        )
+                    })}
+                    {/*<li className="active">популярности</li>*/}
+                    {/*<li>цене</li>*/}
+                    {/*<li>алфавиту</li>*/}
                 </ul>
             </div>
+            }
+
         </div>
     );
 };
