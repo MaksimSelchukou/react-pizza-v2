@@ -3,9 +3,19 @@ import {Header} from "./components/Header";
 import {Categories} from "./components/Categories";
 import {Sort} from "./components/Sort";
 import {PizzaItem} from "./components/PizzaItem";
-import ListPizzas from './assets/pizzas.json'
+import {useEffect, useState} from "react";
 
 function App() {
+
+    const [listPizzas, setListPizzas] = useState([])
+
+    useEffect(() => {
+        fetch('https://628cb35aa3fd714fd03787d7.mockapi.io/items')
+            .then(resp => resp.json())
+            .then(items => setListPizzas(items))
+    }, [])
+
+
     return (
         <div className="wrapper">
             <Header/>
@@ -17,13 +27,17 @@ function App() {
                     </div>
                     <h2 className="content__title">Все пиццы</h2>
                     <div className="content__items">
-                        {ListPizzas.map((pizza)=>( <PizzaItem key={pizza.id} id={pizza.id} image={pizza.imageUrl} title={pizza.title} types={pizza.types} sizes={pizza.sizes} price={pizza.price} category={pizza.category} rating={pizza.rating}  />))}
-                        {/*<PizzaItem/>*/}
-                        {/*<PizzaItem/>*/}
-                        {/*<PizzaItem/>*/}
-                        {/*<PizzaItem/>*/}
-                        {/*<PizzaItem/>*/}
-                        {/*<PizzaItem/>*/}
+                        {listPizzas.map((pizza) => (
+                            <PizzaItem
+                                key={pizza.id}
+                                id={pizza.id}
+                                image={pizza.imageUrl}
+                                title={pizza.title}
+                                types={pizza.types}
+                                sizes={pizza.sizes}
+                                price={pizza.price}
+                                category={pizza.category}
+                                rating={pizza.rating}/>))}
                     </div>
                 </div>
             </div>
