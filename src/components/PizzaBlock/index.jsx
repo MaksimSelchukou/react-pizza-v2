@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-export const PizzaItem = ({id, image, title, price, types, sizes, category, rating}) => {
+export const Index = ({id, imageUrl, title, price, types, sizes, category, rating}) => {
 
     const [activeSize, setActiveSize] = useState(0)
     const [activeDough, setActiveDough] = useState(0)
@@ -17,7 +17,7 @@ export const PizzaItem = ({id, image, title, price, types, sizes, category, rati
         <div className="pizza-block">
             <img
                 className="pizza-block__image"
-                src={image}
+                src={imageUrl}
                 alt="Pizza"
             />
             <h4 className="pizza-block__title">{title}</h4>
